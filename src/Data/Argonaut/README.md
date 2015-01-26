@@ -12,7 +12,13 @@
     (:=) :: forall a. (EncodeJson a) => String -> a -> JAssoc
 
 
+    (?:=) :: forall a. (EncodeJson a) => String -> Maybe a -> Maybe JAssoc
+
+
     (?>>=) :: forall a b. Maybe a -> String -> Either String a
+
+
+    (?~>) :: forall a. (EncodeJson a) => Maybe JAssoc -> a -> Json
 
 
     (~>) :: forall a. (EncodeJson a) => JAssoc -> a -> Json

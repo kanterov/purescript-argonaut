@@ -1,6 +1,8 @@
 module Data.Argonaut.Combinators
   ( (:=)
+  , (?:=)
   , (~>)
+  , (?~>)
   , (?>>=)
   , (.?)
   ) where
@@ -28,6 +30,13 @@ module Data.Argonaut.Combinators
 
   (:=) :: forall a. (EncodeJson a) => String -> a -> JAssoc
   (:=) k v = Tuple k $ encodeJson v
+
+  (?:=) :: forall a. (EncodeJson a) => String -> Maybe a -> Maybe JAssoc
+  (?:=) k v = ((:=) k) <<< encodeJson <$> v
+
+  (?~>) :: forall a. (EncodeJson a) => Maybe JAssoc -> a -> Json
+  (?~>) (Just kv) x = kv ~> x
+  (?~>) Nothing   x = encodeJson x
 
   (~>) :: forall a. (EncodeJson a) => JAssoc -> a -> Json
   (~>) (Tuple k v) a = foldJsonObject (jsonSingletonObject k v) (M.insert k v >>> fromObject) (encodeJson a)

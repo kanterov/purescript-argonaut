@@ -1,7 +1,9 @@
 module Data.Argonaut
   -- Combinators
   ( (:=)
+  , (?:=)
   , (~>)
+  , (?~>)
   , (?>>=)
   , (.?)
   -- Core
@@ -83,12 +85,16 @@ module Data.Argonaut
   -- | Combinators
 
   infix  7 :=
+  infix  7 ?:=
   infix  7 .?
   infixr 6 ~>
+  infixr 6 ?~>
   infixl 1 ?>>=
 
   (:=)   = Combinators.(:=)
+  (?:=)  = Combinators.(?:=)
   (~>)   = Combinators.(~>)
+  (?~>)  = Combinators.(?~>)
   (?>>=) = Combinators.(?>>=)
   (.?)   = Combinators.(.?)
 
@@ -113,7 +119,7 @@ module Data.Argonaut
   downField   = JCursor.downField
   downIndex   = JCursor.downIndex
   insideOut   = JCursor.insideOut
-  toPrims     = JCursor.toPrims  
+  toPrims     = JCursor.toPrims
 
   -- Prims
   primNull    = JCursor.primNull
